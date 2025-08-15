@@ -18,7 +18,7 @@ public class player : MonoBehaviour
     private float walljumpingduration = 0.4f;
     private Vector2 walljumpingpower = new Vector2(3.5f, 16f);
 
-    private float coyote;
+    [SerializeField] private float coyote;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -112,7 +112,7 @@ public class player : MonoBehaviour
         if (iswallsliding)
         {
             iswalljumping = false;
-            walljumpingdirection = -transform.localScale.x;
+            walljumpingdirection = transform.localScale.x;
             walljumpingcounter = walljumpingtime;
 
             CancelInvoke(nameof(stopwalljumping));
