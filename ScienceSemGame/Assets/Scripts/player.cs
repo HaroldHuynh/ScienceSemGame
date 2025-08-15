@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class player : MonoBehaviour
 {
@@ -26,7 +27,35 @@ public class player : MonoBehaviour
     [SerializeField] private AudioClip jumpLow;
     [SerializeField] private AudioClip jumpHigh;
 
-    // Update is called once per frame
+    public InputActionReference dash;
+    public InputActionReference jump;
+
+    private void OnEnable()
+    {
+        jump.action.started += Jump;
+    }
+    private void OnDisable()
+    {
+        jump.action.started -= Jump;
+    }
+
+    private void Jump(InputAction.CallbackContext obj)
+    {
+        Debug.Log("jumped");
+        if (isgrounded() || coyote > 0f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+            doublejump = 1;
+            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
+            if (doublejump > 0 && !isgrounded() && coyote <= 0f)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+                doublejump--;
+                SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
+            }
+        }
+
+    }
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
