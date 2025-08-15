@@ -135,12 +135,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3ebda0abf6a284fa0308614a66e1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coyote: 0
   rb: {fileID: 5915985549036170460}
   groundCheck: {fileID: 8762873212893395681}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   wallCheck: {fileID: 2530560195352277351}
+  jumpLow: {fileID: 8300000, guid: ab180665c3a374e1db34b42786497dea, type: 3}
+  jumpHigh: {fileID: 8300000, guid: 160a0cc921de540139141ae3e911e4eb, type: 3}
 --- !u!61 &7060049660904558892
 BoxCollider2D:
   m_ObjectHideFlags: 0

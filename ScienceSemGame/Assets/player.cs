@@ -19,11 +19,12 @@ public class player : MonoBehaviour
     private Vector2 walljumpingpower = new Vector2(3.5f, 16f);
 
     [SerializeField] private float coyote;
-
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
+    [SerializeField] private AudioClip jumpLow;
+    [SerializeField] private AudioClip jumpHigh;
 
     // Update is called once per frame
     void Update()
@@ -34,6 +35,7 @@ public class player : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump = 1;
+            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
         }
 
 
@@ -41,6 +43,7 @@ public class player : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump--;
+            SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
         }
 
         wallslide();
