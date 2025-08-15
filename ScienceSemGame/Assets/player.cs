@@ -24,8 +24,6 @@ public class player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
-    [SerializeField] private AudioClip jumpLowSound;
-    [SerializeField] private AudioClip jumpHighSound;
 
     // Update is called once per frame
     void Update()
@@ -36,7 +34,6 @@ public class player : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump = 1;
-            SoundManager.instance.PlaySoundFXClip(jumpLowSound, transform, 1f);
         }
 
 
@@ -44,7 +41,6 @@ public class player : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump--;
-            SoundManager.instance.PlaySoundFXClip(jumpHighSound, transform, 1f);
         }
 
         wallslide();
