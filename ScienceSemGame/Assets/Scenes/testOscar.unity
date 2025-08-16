@@ -19014,19 +19014,7 @@ PrefabInstance:
       value: player
       objectReference: {fileID: 0}
     - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
-      propertyPath: dash
-      value: 
-      objectReference: {fileID: 9059873766802740772, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-    - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
       propertyPath: jump
-      value: 
-      objectReference: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-    - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
-      propertyPath: move
-      value: 
-      objectReference: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-    - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
-      propertyPath: slowJump
       value: 
       objectReference: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
     - target: {fileID: 6930303340081567168, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
