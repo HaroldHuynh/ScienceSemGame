@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3ebda0abf6a284fa0308614a66e1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentDashCooldown: 0
   rb: {fileID: 5915985549036170460}
   groundCheck: {fileID: 8762873212893395681}
   groundLayer:
@@ -144,7 +145,7 @@ MonoBehaviour:
   wallCheck: {fileID: 2530560195352277351}
   jumpLow: {fileID: 8300000, guid: ab180665c3a374e1db34b42786497dea, type: 3}
   jumpHigh: {fileID: 8300000, guid: 160a0cc921de540139141ae3e911e4eb, type: 3}
-  tr: {fileID: 0}
+  tr: {fileID: 1220682798047723218}
   dash: {fileID: 9059873766802740772, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   jump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   slowJump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
