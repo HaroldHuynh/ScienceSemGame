@@ -178,7 +178,16 @@ public class player : MonoBehaviour
 
     private bool iswalled()
     {
-        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, groundLayer);
+        Collider2D hit = Physics2D.OverlapCircle(wallCheck.position, 0.2f, groundLayer); //slide but not on oneways
+        if (hit == null)
+        {
+            return false;
+        }
+        if (hit.CompareTag("OneWayPlatform"))
+        {
+            return false;
+        }
+        return true;
     }
     private void wallslide()
     {
