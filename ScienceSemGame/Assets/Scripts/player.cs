@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using System.Collections;
+
 
 public class player : MonoBehaviour
 {
@@ -11,6 +14,13 @@ public class player : MonoBehaviour
 
     private bool iswallsliding;
     private float wallslidingspeed = 2f;
+
+    private bool isdashing;
+    private float dashSpeed = 30f;
+    private float dashduration = 0.2f;
+    private float dashCooldown = 1.25f;
+    private bool canDash = true;
+    [SerializeField] private float currentDashCooldown;
 
     private bool iswalljumping;
     private float walljumpingdirection;
@@ -27,6 +37,7 @@ public class player : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private AudioClip jumpLow;
     [SerializeField] private AudioClip jumpHigh;
+    [SerializeField] private TrailRenderer tr;
 
     public InputActionReference dash;
     public InputActionReference jump;
@@ -35,20 +46,32 @@ public class player : MonoBehaviour
 
     private void OnEnable()
     {
+        if(canDash == true)
+        {
+        dash.action.performed += OnDash;
+        }
         jump.action.started += Jump;
         slowJump.action.canceled += SlowJump;
         move.action.Enable();
     }
     private void OnDisable()
     {
+        dash.action.performed -= OnDash;
         jump.action.started -= Jump;
         slowJump.action.canceled -= SlowJump;
         move.action.Disable();
     }
 
-    private void Jump(InputAction.CallbackContext obj)
+    private void OnDash(InputAction.CallbackContext obj)//dashing
     {
-        Debug.Log("jumped");
+        if(canDash && !isdashing)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+    private void Jump(InputAction.CallbackContext obj) //jumping
+    {
+
         if (isgrounded() || coyote > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
@@ -61,6 +84,23 @@ public class player : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump--;
             SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
+        }
+        if (walljumpingcounter > 0f)
+        {
+            iswalljumping = true;
+            rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
+            walljumpingcounter = 0f;
+            doublejump++;
+
+            if (transform.localScale.x != walljumpingdirection)
+            {
+                isfacingright = !isfacingright;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            }
+
+            Invoke(nameof(stopwalljumping), walljumpingduration);
         }
 
     }
@@ -76,6 +116,10 @@ public class player : MonoBehaviour
 
     void Update()
     {
+        if(isdashing == true)
+        {
+            return;
+        }
         horizontal = move.action.ReadValue<float>();
 
        
@@ -88,10 +132,14 @@ public class player : MonoBehaviour
             Flip();
         }
 
-
+        currentDashCooldown -= Time.deltaTime;
 
         if (isgrounded())
         {
+            if(currentDashCooldown <= 0f)
+            {
+                canDash = true;
+            }
             doublejump = 1;
             coyote = walljumpingtime;
         }
@@ -110,7 +158,12 @@ public class player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!iswalljumping)
+        if (isdashing == true)
+        {
+            return;
+        }
+        
+        if (!iswalljumping) //actually important movement transformation
         {
             rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
         }
@@ -155,31 +208,15 @@ public class player : MonoBehaviour
             walljumpingcounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && walljumpingcounter > 0f)
-        {
-            iswalljumping = true;
-            rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
-            walljumpingcounter = 0f;
-            doublejump++;
 
-            if (transform.localScale.x != walljumpingdirection)
-            {
-                isfacingright = !isfacingright;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
-            }
-
-            Invoke(nameof(stopwalljumping), walljumpingduration);
-        }
     }
 
-    private void stopwalljumping()
+    private void stopwalljumping() //relic of a bygone era
     {
         iswalljumping = false;
     }
 
-    private void Flip()
+    private void Flip() //turns around
     {
         if (isfacingright && horizontal < 0f || !isfacingright && horizontal > 0f)
         {
@@ -188,5 +225,23 @@ public class player : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+
+
+    //Dash stuff
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isdashing = true;
+        float previousverticalmove = rb.gravityScale;
+        rb.gravityScale = 0f;
+        rb.linearVelocity = new Vector2(-transform.localScale.x * dashSpeed, 0f);
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashduration);
+        tr.emitting = false;
+        rb.gravityScale = previousverticalmove;
+        isdashing = false;
+        currentDashCooldown = dashCooldown;
     }
 }
