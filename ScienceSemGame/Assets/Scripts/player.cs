@@ -19,7 +19,8 @@ public class player : MonoBehaviour
     private float walljumpingduration = 0.4f;
     private Vector2 walljumpingpower = new Vector2(3.5f, 16f);
 
-    [SerializeField] private float coyote;
+    private float coyote;
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -29,14 +30,20 @@ public class player : MonoBehaviour
 
     public InputActionReference dash;
     public InputActionReference jump;
+    public InputActionReference slowJump;
+    public InputActionReference move;
 
     private void OnEnable()
     {
         jump.action.started += Jump;
+        slowJump.action.canceled += SlowJump;
+        move.action.Enable();
     }
     private void OnDisable()
     {
         jump.action.started -= Jump;
+        slowJump.action.canceled -= SlowJump;
+        move.action.Disable();
     }
 
     private void Jump(InputAction.CallbackContext obj)
@@ -47,33 +54,31 @@ public class player : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump = 1;
             SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
-            if (doublejump > 0 && !isgrounded() && coyote <= 0f)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
-                doublejump--;
-                SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
-            }
+           
         }
-
-    }
-    void Update()
-    {
-        horizontal = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetButtonDown("Jump") && isgrounded() || Input.GetButtonDown("Jump") && coyote > 0f)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
-            doublejump = 1;
-            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
-        }
-
-
-        if (Input.GetButtonDown("Jump") && doublejump > 0 && !isgrounded() && coyote <= 0f)
+        if (doublejump > 0 && !isgrounded() && coyote <= 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump--;
             SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
         }
+
+    }
+
+    private void SlowJump(InputAction.CallbackContext context)
+    {
+        if (rb.linearVelocity.y > 0f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
+    }
+
+
+    void Update()
+    {
+        horizontal = move.action.ReadValue<float>();
+
+       
 
         wallslide();
         walljump();
@@ -84,10 +89,6 @@ public class player : MonoBehaviour
         }
 
 
-        if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
-        }
 
         if (isgrounded())
         {
