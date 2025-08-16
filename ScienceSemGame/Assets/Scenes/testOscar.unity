@@ -19009,6 +19009,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1683751032}
     m_Modifications:
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Time
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.88271606
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.0061798096
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].inSlope
+      value: -2.06384
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inSlope
+      value: -0.1138931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outSlope
+      value: -2.06384
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inWeight
+      value: 0.16253442
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outSlope
+      value: -0.1138931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outWeight
+      value: 0.1046832
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314565897491195501, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 2114239369}
     - target: {fileID: 4784054180587112328, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
       propertyPath: m_Name
       value: player
@@ -27458,6 +27498,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!70 &2114239369 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: -4228259152598457020, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+  m_PrefabInstance: {fileID: 1590175021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2122804709
 GameObject:
   m_ObjectHideFlags: 0
@@ -27995,6 +28040,10 @@ PrefabInstance:
     - target: {fileID: 4943649155054896384, guid: e2bfb3b57c32f76419e765424b3a3f8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942805783929523395, guid: e2bfb3b57c32f76419e765424b3a3f8e, type: 3}
+      propertyPath: m_SurfaceArc
+      value: 178
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

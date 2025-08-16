@@ -150,6 +150,10 @@ public class player : MonoBehaviour
 
         if (iswallsliding)
         {
+            if (currentDashCooldown <= 0f)
+            {
+                canDash = true;
+            }
             doublejump = 1;
         }
 

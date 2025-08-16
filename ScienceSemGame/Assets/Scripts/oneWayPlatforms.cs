@@ -7,7 +7,7 @@ public class OneWayPlatforms : MonoBehaviour
 {
     private GameObject currentonewayplatform;
 
-    [SerializeField] private BoxCollider2D playerCollider;
+    [SerializeField] private CapsuleCollider2D playerCollider;
 
     public InputActionReference drop;
 

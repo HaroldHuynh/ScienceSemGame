@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6930303340081567168}
   - component: {fileID: 232055680021698753}
   - component: {fileID: 6663379292713990067}
-  - component: {fileID: 7060049660904558892}
+  - component: {fileID: -4228259152598457020}
   - component: {fileID: 5915985549036170460}
   - component: {fileID: 1220682798047723218}
   - component: {fileID: 4314565897491195501}
@@ -151,8 +151,8 @@ MonoBehaviour:
   jump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   slowJump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   move: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
---- !u!61 &7060049660904558892
-BoxCollider2D:
+--- !u!70 &-4228259152598457020
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -186,17 +186,8 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Direction: 0
 --- !u!50 &5915985549036170460
 Rigidbody2D:
   serializedVersion: 5
@@ -352,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c689053fa8dd0646af368b799c533a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollider: {fileID: 7060049660904558892}
+  playerCollider: {fileID: 0}
   drop: {fileID: 1523647591355979589, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &8233046198046813313
 GameObject:
