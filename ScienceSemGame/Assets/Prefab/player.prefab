@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3ebda0abf6a284fa0308614a66e1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coyote: 0
+  walljumpingcounter: 0
   rb: {fileID: 5915985549036170460}
   groundCheck: {fileID: 8762873212893395681}
   groundLayer:
@@ -144,6 +144,10 @@ MonoBehaviour:
   wallCheck: {fileID: 2530560195352277351}
   jumpLow: {fileID: 8300000, guid: ab180665c3a374e1db34b42786497dea, type: 3}
   jumpHigh: {fileID: 8300000, guid: 160a0cc921de540139141ae3e911e4eb, type: 3}
+  dash: {fileID: 9059873766802740772, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  jump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  slowJump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  move: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!61 &7060049660904558892
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -242,7 +246,7 @@ Transform:
   m_GameObject: {fileID: 8233046198046813313}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.25, z: 0}
+  m_LocalPosition: {x: -0.511, y: 0.004, z: 0}
   m_LocalScale: {x: 2.0614307, y: 1.1882129, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

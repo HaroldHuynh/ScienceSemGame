@@ -15,7 +15,7 @@ public class player : MonoBehaviour
     private bool iswalljumping;
     private float walljumpingdirection;
     private float walljumpingtime = 0.2f;
-    private float walljumpingcounter;
+   [SerializeField] private float walljumpingcounter;
     private float walljumpingduration = 0.4f;
     private Vector2 walljumpingpower = new Vector2(3.5f, 16f);
 
@@ -61,6 +61,23 @@ public class player : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump--;
             SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
+        }
+        if (walljumpingcounter > 0f)
+        {
+            iswalljumping = true;
+            rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
+            walljumpingcounter = 0f;
+            doublejump++;
+
+            if (transform.localScale.x != walljumpingdirection)
+            {
+                isfacingright = !isfacingright;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            }
+
+            Invoke(nameof(stopwalljumping), walljumpingduration);
         }
 
     }
@@ -155,23 +172,7 @@ public class player : MonoBehaviour
             walljumpingcounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && walljumpingcounter > 0f)
-        {
-            iswalljumping = true;
-            rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
-            walljumpingcounter = 0f;
-            doublejump++;
 
-            if (transform.localScale.x != walljumpingdirection)
-            {
-                isfacingright = !isfacingright;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
-            }
-
-            Invoke(nameof(stopwalljumping), walljumpingduration);
-        }
     }
 
     private void stopwalljumping()
