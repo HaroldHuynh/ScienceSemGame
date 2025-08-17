@@ -28133,7 +28133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7942805783929523395, guid: e2bfb3b57c32f76419e765424b3a3f8e, type: 3}
       propertyPath: m_SurfaceArc
-      value: 178
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942805783929523395, guid: e2bfb3b57c32f76419e765424b3a3f8e, type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 255
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

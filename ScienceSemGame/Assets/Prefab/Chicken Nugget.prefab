@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3534069977832781574}
   - component: {fileID: -2164102211610570711}
   - component: {fileID: -4299169714970686286}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chicken Nugget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
