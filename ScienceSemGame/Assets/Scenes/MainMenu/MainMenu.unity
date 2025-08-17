@@ -4111,7 +4111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3732904826116477598, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
       propertyPath: m_Name
-      value: SceneTransitionFromMenu
+      value: SceneTransition
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
