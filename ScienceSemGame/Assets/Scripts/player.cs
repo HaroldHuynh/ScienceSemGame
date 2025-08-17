@@ -24,7 +24,7 @@ public class player : MonoBehaviour
 
     private bool iswalljumping;
     private float walljumpingdirection;
-    private float walljumpingtime = 0.2f;
+    private float walljumpingtime = 0.18f;
     private float walljumpingcounter;
     private float walljumpingduration = 0.4f;
     private Vector2 walljumpingpower = new Vector2(3.5f, 16f);
