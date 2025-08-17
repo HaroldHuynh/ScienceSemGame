@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9098266396540285609}
   - component: {fileID: 4890555152532917373}
   - component: {fileID: 4424365236622767335}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ Transform:
   m_GameObject: {fileID: 3006247343061833300}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.51, y: -0.135, z: 0}
+  m_LocalPosition: {x: 0.6, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -218,17 +218,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617f738cf5af3ac4d99421ecea34b099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4784054180587112328, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+  player: {fileID: 0}
   sight: {fileID: 4693229020030577017}
   nuggetSpawner: {fileID: 5176793018407091668}
   chickenNuggetPrefab: {fileID: 2496586401318193183, guid: c4e4d7e079e4937419776f04261a2ad0, type: 3}
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 255
   rb: {fileID: 2519431596865337811}
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 9
 --- !u!58 &8296165048935106176
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5176793018407091668}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Nugget Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
