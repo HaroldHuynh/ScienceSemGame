@@ -7,26 +7,30 @@ public class FlyingEnemy : MonoBehaviour
 
     public Transform nuggetSpawner;
     public GameObject chickenNuggetPrefab;
-    private float shootspeed = 15f;
+    private float shootspeed = 20f;
 
     [SerializeField] private LayerMask layerMask;
-
-    [SerializeField] private int mode;
-    private float pursuitTime;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private LayerMask wallLayer;
 
     private float attackCooldown;
     private float maxAttackCooldown = 2f;
 
-    void FixedUpdate()
+
+
+        void FixedUpdate()
     {
         attackCooldown -= Time.deltaTime;
         Vector2 pDir = (player.transform.position - sight.transform.position).normalized;
         RaycastHit2D raycastHit2D = Physics2D.Raycast(sight.transform.position, pDir, Vector2.Distance(sight.transform.position, player.transform.position), layerMask);
-        Debug.Log(raycastHit2D.collider.gameObject.layer);
+        //Debug.Log(raycastHit2D.collider.gameObject.layer);
         if (raycastHit2D.collider != null && raycastHit2D.collider.gameObject.layer == 6)
         {
-            mode = 1;
-            pursuitTime = 3f;
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            if ((player.transform.position.x - transform.position.x) / transform.localScale.x < 0)
+            {
+                Flip();
+            }
             if (attackCooldown <= 0f)
             {
                 float angle = Mathf.Atan2(pDir.y, pDir.x) * Mathf.Rad2Deg;
@@ -40,13 +44,26 @@ public class FlyingEnemy : MonoBehaviour
         }
         else
         {
-            pursuitTime -= Time.deltaTime;
-            if(pursuitTime <= 0f)
+            rb.linearVelocity = new Vector2(6 * transform.localScale.x, rb.linearVelocity.y);
+            Collider2D hit = Physics2D.OverlapCircle(sight.position, 0.2f, wallLayer);
+            if(hit == null)
             {
-                mode = 0;
+                return;
+            }
+            if (hit.gameObject.layer == 3 || hit.gameObject.layer == 0)
+            {
+                Flip();
             }
         }
 
 
     }
+
+    private void Flip()
+    {
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
+    }
+
 }

@@ -6,9 +6,9 @@ using System.Collections;
 
 public class player : MonoBehaviour
 {
-    private float speed = 8f;
+    private float speed = 12f;
     private float horizontal;
-    private float jumpingpower = 16f;
+    private float jumpingpower = 18f;
     private bool isfacingright = true;
     private int doublejump = 0;
 
@@ -16,18 +16,18 @@ public class player : MonoBehaviour
     private float wallslidingspeed = 2f;
 
     private bool isdashing;
-    private float dashSpeed = 30f;
+    private float dashSpeed = 35f;
     private float dashduration = 0.2f;
-    private float dashCooldown = 1.25f;
+    private float dashCooldown = 1f;
     private bool canDash = true;
     [SerializeField] private float currentDashCooldown;
 
     private bool iswalljumping;
     private float walljumpingdirection;
-    private float walljumpingtime = 0.18f;
+    private float walljumpingtime = 0.12f;
     private float walljumpingcounter;
     private float walljumpingduration = 0.4f;
-    private Vector2 walljumpingpower = new Vector2(3.5f, 16f);
+    private Vector2 walljumpingpower = new Vector2(3.5f, 18f);
 
     private float coyote;
 
@@ -79,7 +79,7 @@ public class player : MonoBehaviour
             SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
            
         }
-        if (doublejump > 0 && !isgrounded() && coyote <= 0f)
+        if (doublejump > 0 && !isgrounded() && coyote <= 0f && rb.linearVelocity.y < jumpingpower)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
             doublejump--;
