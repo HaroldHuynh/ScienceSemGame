@@ -22,7 +22,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         attackCooldown -= Time.deltaTime;
         Vector2 pDir = (player.transform.position - sight.transform.position).normalized;
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(sight.transform.position, pDir, Vector2.Distance(sight.transform.position, player.transform.position), layerMask);
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(sight.transform.position, pDir, 18, layerMask);
         //Debug.Log(raycastHit2D.collider.gameObject.layer);
         if (raycastHit2D.collider != null && raycastHit2D.collider.gameObject.layer == 6)
         {

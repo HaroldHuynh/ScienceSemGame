@@ -74,23 +74,17 @@ public class player : MonoBehaviour
 
         if (isgrounded() || coyote > 0f)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
-            doublejump = 1;
-            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
+            Jump();
            
         }
-        if (doublejump > 0 && !isgrounded() && coyote <= 0f && rb.linearVelocity.y < jumpingpower)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
-            doublejump--;
-            SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
-        }
+
         if (walljumpingcounter > 0f)
         {
             iswalljumping = true;
             rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
             walljumpingcounter = 0f;
-            doublejump++;
+            doublejump = 1;
+            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
 
             if (transform.localScale.x != walljumpingdirection)
             {
@@ -101,6 +95,15 @@ public class player : MonoBehaviour
             }
 
             Invoke(nameof(stopwalljumping), walljumpingduration);
+        }
+        else
+        {
+            if (doublejump > 0 && !isgrounded() && coyote <= 0f && rb.linearVelocity.y < jumpingpower)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+                doublejump--;
+                SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
+            }
         }
 
     }
@@ -240,6 +243,12 @@ public class player : MonoBehaviour
         }
     }
 
+    public void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+        doublejump = 1;
+        SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
+    }
 
 
     //Dash stuff
