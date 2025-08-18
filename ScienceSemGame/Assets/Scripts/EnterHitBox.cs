@@ -6,6 +6,7 @@ public class EnterHitBox : MonoBehaviour
 {
     [SerializeField] private GameObject toolTip;
     [SerializeField] private string nextLevelName;
+    [SerializeField] private AudioClip doorSound;
     public InputActionReference Interact;
     private bool inEnterZone;
 
@@ -41,6 +42,7 @@ public class EnterHitBox : MonoBehaviour
     {
         if (inEnterZone == true)
         {
+            SoundManager.instance.PlaySoundFXClip(doorSound, transform, 1f);
             SceneController.instance.LoadScene(nextLevelName);
         }
     }
