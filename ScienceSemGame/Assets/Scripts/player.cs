@@ -18,9 +18,11 @@ public class player : MonoBehaviour
     private bool isdashing;
     private float dashSpeed = 35f;
     private float dashduration = 0.2f;
-    private float dashCooldown = 1f;
+    private float dashCooldown = 0.6f;
     private bool canDash = true;
     private float currentDashCooldown;
+
+    private float jumpCooldown;
 
     private bool iswalljumping;
     private float walljumpingdirection;
@@ -29,7 +31,7 @@ public class player : MonoBehaviour
     private float walljumpingduration = 0.4f;
     private Vector2 walljumpingpower = new Vector2(3.5f, 18f);
 
-    [SerializeField] private int sticky;
+    private int sticky;
 
     private float coyote;
 
@@ -46,9 +48,14 @@ public class player : MonoBehaviour
     public InputActionReference slowJump;
     public InputActionReference move;
 
+    [SerializeField] private float stamina = 50f;
+    private float maxStamina = 50f;
+    public int life = 3;
+    private float invincibility;
+
     private void OnEnable()
     {
-        if (canDash == true)
+        if (canDash == true && stamina >= 10f)
         {
             dash.action.performed += OnDash;
         }
@@ -73,12 +80,12 @@ public class player : MonoBehaviour
     }
     private void Jump(InputAction.CallbackContext obj) //jumping
     {
-        if(sticky == 0)
+        if(sticky == 0 && jumpCooldown <= 0f)
         {
+        jumpCooldown = 0.15f;
         if (isgrounded() || coyote > 0f)
         {
             Jump();
-
         }
 
         if (walljumpingcounter > 0f)
@@ -96,7 +103,6 @@ public class player : MonoBehaviour
                 localScale.x *= -1f;
                 transform.localScale = localScale;
             }
-
             Invoke(nameof(stopwalljumping), walljumpingduration);
         }
         else
@@ -122,6 +128,20 @@ public class player : MonoBehaviour
 
     void Update()
     {
+        invincibility -= Time.deltaTime;
+        jumpCooldown -= Time.deltaTime;
+        if(stamina > maxStamina)
+        {
+            stamina = maxStamina + 25;
+            stamina -= Time.deltaTime;
+            if(stamina < maxStamina)
+            {
+                stamina = maxStamina;
+            }
+        }
+
+
+
         if (isdashing == true)
         {
             return;
@@ -257,6 +277,7 @@ public class player : MonoBehaviour
     //Dash stuff
     private IEnumerator Dash()
     {
+        stamina -= 10f;
         canDash = false;
         isdashing = true;
         float previousverticalmove = rb.gravityScale;
@@ -292,6 +313,15 @@ public class player : MonoBehaviour
                 sticky -= 1;
             }
 
+        }
+    }
+
+    public void Damaged()
+    {
+        if(invincibility <= 0f)
+        {
+        life -= 1;
+        invincibility = 0.1f;
         }
     }
 }
