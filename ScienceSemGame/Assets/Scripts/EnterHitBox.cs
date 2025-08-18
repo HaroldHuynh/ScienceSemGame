@@ -39,7 +39,6 @@ public class EnterHitBox : MonoBehaviour
 
     private void Interact1(InputAction.CallbackContext obj)
     {
-        Debug.Log("Pressed");
         if (inEnterZone == true)
         {
             SceneController.instance.LoadScene(nextLevelName);
