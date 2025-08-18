@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8756017009446966311}
   - component: {fileID: 7895345550821902529}
-  - component: {fileID: 911930930899614821}
+  - component: {fileID: 662101389370432611}
   m_Layer: 0
   m_Name: EnterToolTip
   m_TagString: Untagged
@@ -210,9 +210,9 @@ Transform:
   m_GameObject: {fileID: 6630073320654265226}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.32518, y: 2.3688297, z: 0}
+  m_LocalPosition: {x: 5.32518, y: 2.36883, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3399852947074851878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -271,18 +271,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &911930930899614821
-MonoBehaviour:
+--- !u!95 &662101389370432611
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6630073320654265226}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e21d0ae61a15d43b39190047fa4b76ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoomSpeed: 2
-  zoomAmount: 0.05
-  jitterAmount: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: afb05562ab2334c7cbf836d3b42ea1cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
