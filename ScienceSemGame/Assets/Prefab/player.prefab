@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3ebda0abf6a284fa0308614a66e1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDashCooldown: 0
+  walljumpingpower: {x: 3.5, y: 15}
   rb: {fileID: 5915985549036170460}
   groundCheck: {fileID: 8762873212893395681}
   groundLayer:
@@ -151,6 +151,8 @@ MonoBehaviour:
   jump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   slowJump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   move: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  stamina: 50
+  life: 3
 --- !u!70 &-4228259152598457020
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -201,7 +203,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0.1
+  m_LinearDamping: 0.98
   m_AngularDamping: 0.05
   m_GravityScale: 4
   m_Material: {fileID: 0}

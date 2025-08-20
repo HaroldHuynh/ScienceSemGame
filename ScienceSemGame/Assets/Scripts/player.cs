@@ -6,9 +6,9 @@ using System.Collections;
 
 public class player : MonoBehaviour
 {
-    private float speed = 12f;
+    private float speed = 36f;
     private float horizontal;
-    private float jumpingpower = 18f;
+    private float jumpingpower = 1100f;
     private bool isfacingright = true;
     private int doublejump = 0;
 
@@ -29,7 +29,7 @@ public class player : MonoBehaviour
     private float walljumpingtime = 0.12f;
     private float walljumpingcounter;
     private float walljumpingduration = 0.4f;
-    private Vector2 walljumpingpower = new Vector2(3.5f, 18f);
+    [SerializeField] private Vector2 walljumpingpower;
 
     private int sticky;
 
@@ -107,9 +107,9 @@ public class player : MonoBehaviour
         }
         else
         {
-            if (doublejump > 0 && !isgrounded() && coyote <= 0f && rb.linearVelocity.y < jumpingpower)
+            if (doublejump > 0 && !isgrounded() && coyote <= 0f )
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+                rb.AddForce(Vector2.up * jumpingpower);
                 doublejump--;
                 SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
             }
@@ -195,7 +195,8 @@ public class player : MonoBehaviour
 
         if (!iswalljumping) //actually important movement transformation
         {
-            rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+            Vector2 horizontalVector = new Vector2(horizontal * speed, 0);
+            rb.AddForce(horizontalVector);
         }
     }
 
@@ -268,7 +269,7 @@ public class player : MonoBehaviour
 
     public void Jump()
     {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+            rb.AddForce(Vector2.up * jumpingpower);
             doublejump = 1;
             SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
     }
@@ -322,6 +323,7 @@ public class player : MonoBehaviour
         {
         life -= 1;
         invincibility = 0.1f;
+            rb.AddForce(Vector2.up * jumpingpower * 0.5f);
         }
     }
 }
