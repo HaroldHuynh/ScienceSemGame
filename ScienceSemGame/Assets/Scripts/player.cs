@@ -6,7 +6,7 @@ using System.Collections;
 
 public class player : MonoBehaviour
 {
-    private float speed = 36f;
+    private float speed = 50f;
     private float horizontal;
     private float jumpingpower = 1100f;
     private bool isfacingright = true;
