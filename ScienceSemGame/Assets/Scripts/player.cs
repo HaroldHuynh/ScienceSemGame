@@ -6,9 +6,9 @@ using System.Collections;
 
 public class player : MonoBehaviour
 {
-    private float speed = 50f;
+    private float speed = 2f;
     private float horizontal;
-    private float jumpingpower = 1100f;
+    private float jumpingpower = 21f;
     private bool isfacingright = true;
     private int doublejump = 0;
 
@@ -34,6 +34,8 @@ public class player : MonoBehaviour
     private int sticky;
 
     private float coyote;
+
+    [SerializeField] private float friction;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -109,7 +111,7 @@ public class player : MonoBehaviour
         {
             if (doublejump > 0 && !isgrounded() && coyote <= 0f )
             {
-                rb.AddForce(Vector2.up * jumpingpower);
+                rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
                 doublejump--;
                 SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
             }
@@ -132,7 +134,10 @@ public class player : MonoBehaviour
         jumpCooldown -= Time.deltaTime;
         if(stamina > maxStamina)
         {
-            stamina = maxStamina + 25;
+            if (stamina > maxStamina + 25) {
+                stamina = maxStamina + 25;
+            }
+                
             stamina -= Time.deltaTime;
             if(stamina < maxStamina)
             {
@@ -196,8 +201,10 @@ public class player : MonoBehaviour
         if (!iswalljumping) //actually important movement transformation
         {
             Vector2 horizontalVector = new Vector2(horizontal * speed, 0);
-            rb.AddForce(horizontalVector);
+            rb.AddForce(horizontalVector, ForceMode2D.Impulse);
         }
+
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x * friction, rb.linearVelocity.y);
     }
 
     private bool isgrounded()
@@ -269,7 +276,7 @@ public class player : MonoBehaviour
 
     public void Jump()
     {
-            rb.AddForce(Vector2.up * jumpingpower);
+            rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
             doublejump = 1;
             SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
     }
@@ -323,7 +330,7 @@ public class player : MonoBehaviour
         {
         life -= 1;
         invincibility = 0.1f;
-            rb.AddForce(Vector2.up * jumpingpower * 0.5f);
+            rb.AddForce(Vector2.up * jumpingpower * 0.5f, ForceMode2D.Impulse);
         }
     }
 }
