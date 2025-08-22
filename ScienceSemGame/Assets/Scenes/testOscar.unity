@@ -18242,6 +18242,10 @@ PrefabInstance:
       value: 0.91
       objectReference: {fileID: 0}
     - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: checkedPoint
+      value: 
+      objectReference: {fileID: 829792736}
+    - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
       propertyPath: walljumpingpower.x
       value: 3.5
       objectReference: {fileID: 0}

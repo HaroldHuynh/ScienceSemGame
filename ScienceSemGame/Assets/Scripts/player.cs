@@ -54,6 +54,7 @@ public class player : MonoBehaviour
     private float maxStamina = 50f;
     public int life = 3;
     private float invincibility;
+    public Transform checkedPoint;
 
     private void OnEnable()
     {
@@ -342,8 +343,19 @@ public class player : MonoBehaviour
         if(invincibility <= 0f)
         {
         life -= 1;
+        if(life == 0)
+            {
+                Restart();
+            }
         invincibility = 0.1f;
             rb.AddForce(Vector2.up * jumpingpower * 0.5f, ForceMode2D.Impulse);
         }
+    }
+
+    public void Restart()
+    {
+        rb.linearVelocity = new Vector2(0f, 0f);
+        transform.position = new Vector3(checkedPoint.position.x, checkedPoint.position.y + 1, checkedPoint.position.z);
+
     }
 }
