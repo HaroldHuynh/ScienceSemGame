@@ -137,7 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3ebda0abf6a284fa0308614a66e1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walljumpingpower: {x: 3.5, y: 15}
+  walljumpingpower: {x: 3.5, y: 20}
+  friction: 0.91
   rb: {fileID: 5915985549036170460}
   groundCheck: {fileID: 8762873212893395681}
   groundLayer:

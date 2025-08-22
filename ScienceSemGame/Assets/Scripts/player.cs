@@ -75,7 +75,7 @@ public class player : MonoBehaviour
 
     private void OnDash(InputAction.CallbackContext obj)//dashing
     {
-        if (canDash && !isdashing)
+        if (canDash && !isdashing & stamina >= 10)
         {
             StartCoroutine(Dash());
         }
@@ -138,7 +138,7 @@ public class player : MonoBehaviour
                 stamina = maxStamina + 25;
             }
                 
-            stamina -= Time.deltaTime;
+            stamina -= Time.deltaTime * 5;
             if(stamina < maxStamina)
             {
                 stamina = maxStamina;
@@ -319,6 +319,19 @@ public class player : MonoBehaviour
             if (touchedComponent.sticky == true)
             {
                 sticky -= 1;
+            }
+
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<tags>(out tags touchedComponent))
+        {
+            if (touchedComponent.checkPoint == true)
+            {
+                stamina = maxStamina + 25;
+                life = 3;
             }
 
         }

@@ -27168,6 +27168,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 28119519b294e7845bfc2932400c4557, type: 2}
+    - target: {fileID: 5590475865846353934, guid: ed4279b8c0e065547aa6d0146cf8cc58, type: 3}
+      propertyPath: checkPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7108659253711179892, guid: ed4279b8c0e065547aa6d0146cf8cc58, type: 3}
       propertyPath: m_LocalPosition.x
       value: 28.267948
