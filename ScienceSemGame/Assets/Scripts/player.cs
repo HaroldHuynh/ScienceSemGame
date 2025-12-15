@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Collections;
+using System;
+using TMPro;
 
 
 public class player : MonoBehaviour
@@ -38,8 +40,11 @@ public class player : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private AudioClip jumpLow;
+    [SerializeField] private AudioClip walkSound;
     [SerializeField] private AudioClip jumpHigh;
     [SerializeField] private TrailRenderer tr;
+
+    private Boolean playingWalkSound = false;
 
     public InputActionReference dash;
     public InputActionReference jump;
@@ -73,41 +78,41 @@ public class player : MonoBehaviour
     }
     private void Jump(InputAction.CallbackContext obj) //jumping
     {
-        if(sticky == 0)
+        if (sticky == 0)
         {
-        if (isgrounded() || coyote > 0f)
-        {
-            Jump();
-
-        }
-
-        if (walljumpingcounter > 0f)
-        {
-            iswalljumping = true;
-            rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
-            walljumpingcounter = 0f;
-            doublejump = 1;
-            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
-
-            if (transform.localScale.x != walljumpingdirection)
+            if (isgrounded() || coyote > 0f)
             {
-                isfacingright = !isfacingright;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
+                Jump();
+
             }
 
-            Invoke(nameof(stopwalljumping), walljumpingduration);
-        }
-        else
-        {
-            if (doublejump > 0 && !isgrounded() && coyote <= 0f && rb.linearVelocity.y < jumpingpower)
+            if (walljumpingcounter > 0f)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
-                doublejump--;
-                SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
+                iswalljumping = true;
+                rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
+                walljumpingcounter = 0f;
+                doublejump = 1;
+                SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
+
+                if (transform.localScale.x != walljumpingdirection)
+                {
+                    isfacingright = !isfacingright;
+                    Vector3 localScale = transform.localScale;
+                    localScale.x *= -1f;
+                    transform.localScale = localScale;
+                }
+
+                Invoke(nameof(stopwalljumping), walljumpingduration);
             }
-        }
+            else
+            {
+                if (doublejump > 0 && !isgrounded() && coyote <= 0f && rb.linearVelocity.y < jumpingpower)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+                    doublejump--;
+                    SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
+                }
+            }
         }
     }
 
@@ -162,8 +167,20 @@ public class player : MonoBehaviour
             }
             doublejump = 1;
         }
+        if (isgrounded() && rb.linearVelocity.x != 0 && playingWalkSound == false)
+        {
+            StartCoroutine(playWalkingSound());
+        }
 
 
+    }
+
+    IEnumerator playWalkingSound()
+    {
+        playingWalkSound = true;
+        SoundManager.instance.PlaySoundFXClip(walkSound, transform, 1f);
+        yield return new WaitForSeconds(0.25f);
+        playingWalkSound = false;
     }
 
     private void FixedUpdate()
@@ -248,9 +265,9 @@ public class player : MonoBehaviour
 
     public void Jump()
     {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
-            doublejump = 1;
-            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+        doublejump = 1;
+        SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
     }
 
 
