@@ -6,9 +6,9 @@ using System.Collections;
 
 public class player : MonoBehaviour
 {
-    private float speed = 12f;
+    private float speed = 2f;
     private float horizontal;
-    private float jumpingpower = 18f;
+    private float jumpingpower = 21f;
     private bool isfacingright = true;
     private int doublejump = 0;
 
@@ -18,20 +18,24 @@ public class player : MonoBehaviour
     private bool isdashing;
     private float dashSpeed = 35f;
     private float dashduration = 0.2f;
-    private float dashCooldown = 1f;
+    private float dashCooldown = 0.6f;
     private bool canDash = true;
     private float currentDashCooldown;
+
+    private float jumpCooldown;
 
     private bool iswalljumping;
     private float walljumpingdirection;
     private float walljumpingtime = 0.12f;
     private float walljumpingcounter;
     private float walljumpingduration = 0.4f;
-    private Vector2 walljumpingpower = new Vector2(3.5f, 18f);
+    [SerializeField] private Vector2 walljumpingpower;
 
-    [SerializeField] private int sticky;
+    private int sticky;
 
     private float coyote;
+
+    [SerializeField] private float friction;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -46,9 +50,15 @@ public class player : MonoBehaviour
     public InputActionReference slowJump;
     public InputActionReference move;
 
+    [SerializeField] private float stamina = 50f;
+    private float maxStamina = 50f;
+    public int life = 3;
+    private float invincibility;
+    public Transform checkedPoint;
+
     private void OnEnable()
     {
-        if (canDash == true)
+        if (canDash == true && stamina >= 10f)
         {
             dash.action.performed += OnDash;
         }
@@ -66,19 +76,19 @@ public class player : MonoBehaviour
 
     private void OnDash(InputAction.CallbackContext obj)//dashing
     {
-        if (canDash && !isdashing)
+        if (canDash && !isdashing & stamina >= 10)
         {
             StartCoroutine(Dash());
         }
     }
     private void Jump(InputAction.CallbackContext obj) //jumping
     {
-        if(sticky == 0)
+        if(sticky == 0 && jumpCooldown <= 0f)
         {
+        jumpCooldown = 0.15f;
         if (isgrounded() || coyote > 0f)
         {
             Jump();
-
         }
 
         if (walljumpingcounter > 0f)
@@ -96,14 +106,13 @@ public class player : MonoBehaviour
                 localScale.x *= -1f;
                 transform.localScale = localScale;
             }
-
             Invoke(nameof(stopwalljumping), walljumpingduration);
         }
         else
         {
-            if (doublejump > 0 && !isgrounded() && coyote <= 0f && rb.linearVelocity.y < jumpingpower)
+            if (doublejump > 0 && !isgrounded() && coyote <= 0f )
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+                rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
                 doublejump--;
                 SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
             }
@@ -122,6 +131,23 @@ public class player : MonoBehaviour
 
     void Update()
     {
+        invincibility -= Time.deltaTime;
+        jumpCooldown -= Time.deltaTime;
+        if(stamina > maxStamina)
+        {
+            if (stamina > maxStamina + 25) {
+                stamina = maxStamina + 25;
+            }
+                
+            stamina -= Time.deltaTime * 5;
+            if(stamina < maxStamina)
+            {
+                stamina = maxStamina;
+            }
+        }
+
+
+
         if (isdashing == true)
         {
             return;
@@ -175,8 +201,11 @@ public class player : MonoBehaviour
 
         if (!iswalljumping) //actually important movement transformation
         {
-            rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+            Vector2 horizontalVector = new Vector2(horizontal * speed, 0);
+            rb.AddForce(horizontalVector, ForceMode2D.Impulse);
         }
+
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x * friction, rb.linearVelocity.y);
     }
 
     private bool isgrounded()
@@ -248,7 +277,7 @@ public class player : MonoBehaviour
 
     public void Jump()
     {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingpower);
+            rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
             doublejump = 1;
             SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
     }
@@ -257,6 +286,7 @@ public class player : MonoBehaviour
     //Dash stuff
     private IEnumerator Dash()
     {
+        stamina -= 10f;
         canDash = false;
         isdashing = true;
         float previousverticalmove = rb.gravityScale;
@@ -293,5 +323,39 @@ public class player : MonoBehaviour
             }
 
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<tags>(out tags touchedComponent))
+        {
+            if (touchedComponent.checkPoint == true)
+            {
+                stamina = maxStamina + 25;
+                life = 3;
+            }
+
+        }
+    }
+
+    public void Damaged()
+    {
+        if(invincibility <= 0f)
+        {
+        life -= 1;
+        if(life == 0)
+            {
+                Restart();
+            }
+        invincibility = 0.1f;
+            rb.AddForce(Vector2.up * jumpingpower * 0.5f, ForceMode2D.Impulse);
+        }
+    }
+
+    public void Restart()
+    {
+        rb.linearVelocity = new Vector2(0f, 0f);
+        transform.position = new Vector3(checkedPoint.position.x, checkedPoint.position.y + 1, checkedPoint.position.z);
+
     }
 }
