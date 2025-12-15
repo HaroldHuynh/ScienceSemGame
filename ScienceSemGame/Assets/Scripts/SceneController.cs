@@ -28,7 +28,7 @@ public class SceneController : MonoBehaviour
     IEnumerator ExitScene()
     {
         transitionAnim.SetTrigger("ExitScene");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         SceneManager.LoadSceneAsync(SceneName);
     }
 }
