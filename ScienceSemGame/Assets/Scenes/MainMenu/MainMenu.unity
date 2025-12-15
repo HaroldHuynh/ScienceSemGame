@@ -4170,6 +4170,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3408606336552959047, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
+      propertyPath: waitTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408606336552959047, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
+      propertyPath: doorSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d2845def274134b949687e189e4fbda2, type: 3}
     - target: {fileID: 3732904826116477598, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
       propertyPath: m_Name
       value: SceneTransition
