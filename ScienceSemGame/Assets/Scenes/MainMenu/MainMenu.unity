@@ -4760,17 +4760,9 @@ PrefabInstance:
       value: player
       objectReference: {fileID: 0}
     - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
-      propertyPath: tr
+      propertyPath: dashSound
       value: 
-      objectReference: {fileID: 1017671371}
-    - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
-      propertyPath: landSound
-      value: 
-      objectReference: {fileID: 8300000, guid: d6924127606884603bb5deef0eb42c0b, type: 3}
-    - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
-      propertyPath: walkSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 89eb86d55eb044ef4b85e1ab455be674, type: 3}
+      objectReference: {fileID: 8300000, guid: 4a63f8beeaba04080933b21e9616a444, type: 3}
     - target: {fileID: 6930303340081567168, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.21871
@@ -4819,11 +4811,6 @@ PrefabInstance:
 --- !u!4 &1017671370 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6930303340081567168, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
-  m_PrefabInstance: {fileID: 1017671369}
-  m_PrefabAsset: {fileID: 0}
---- !u!96 &1017671371 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
   m_PrefabInstance: {fileID: 1017671369}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1031120009
