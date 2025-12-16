@@ -147,6 +147,7 @@ MonoBehaviour:
   wallCheck: {fileID: 2530560195352277351}
   jumpLow: {fileID: 8300000, guid: ab180665c3a374e1db34b42786497dea, type: 3}
   jumpHigh: {fileID: 8300000, guid: 160a0cc921de540139141ae3e911e4eb, type: 3}
+  walkSound: {fileID: 8300000, guid: 89eb86d55eb044ef4b85e1ab455be674, type: 3}
   tr: {fileID: 1220682798047723218}
   dash: {fileID: 9059873766802740772, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   jump: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
@@ -154,6 +155,7 @@ MonoBehaviour:
   move: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   stamina: 50
   life: 3
+  checkedPoint: {fileID: 0}
 --- !u!70 &-4228259152598457020
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
