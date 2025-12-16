@@ -4763,6 +4763,10 @@ PrefabInstance:
       propertyPath: tr
       value: 
       objectReference: {fileID: 1017671371}
+    - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: walkSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f0d88f829c6504b23a5f9dbc39019d45, type: 3}
     - target: {fileID: 6930303340081567168, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.21871
