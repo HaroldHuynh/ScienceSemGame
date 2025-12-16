@@ -45,9 +45,11 @@ public class player : MonoBehaviour
     [SerializeField] private AudioClip jumpLow;
     [SerializeField] private AudioClip jumpHigh;
     [SerializeField] private AudioClip walkSound;
+    [SerializeField] private AudioClip landSound;
     [SerializeField] private TrailRenderer tr;
 
     private Boolean playingWalkSound = false;
+    private Boolean prepareLanding = false;
 
     public InputActionReference dash;
     public InputActionReference jump;
@@ -197,6 +199,17 @@ public class player : MonoBehaviour
         if (isgrounded() && Mathf.Abs(rb.linearVelocity.x) >= 2f && playingWalkSound == false)
         {
             StartCoroutine(playWalkingSound());
+        }
+
+        if (!isgrounded() && prepareLanding != true)
+        {
+            prepareLanding = true;
+        }
+
+        if (prepareLanding == true && isgrounded())
+        {
+            prepareLanding = false;
+            SoundManager.instance.PlaySoundFXClip(landSound, transform, 1f);
         }
 
     }

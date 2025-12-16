@@ -4764,6 +4764,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1017671371}
     - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: landSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d6924127606884603bb5deef0eb42c0b, type: 3}
+    - target: {fileID: 6663379292713990067, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
       propertyPath: walkSound
       value: 
       objectReference: {fileID: 8300000, guid: 89eb86d55eb044ef4b85e1ab455be674, type: 3}
