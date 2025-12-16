@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 
 public class player : MonoBehaviour
@@ -43,7 +44,10 @@ public class player : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private AudioClip jumpLow;
     [SerializeField] private AudioClip jumpHigh;
+    [SerializeField] private AudioClip walkSound;
     [SerializeField] private TrailRenderer tr;
+
+    private Boolean playingWalkSound = false;
 
     public InputActionReference dash;
     public InputActionReference jump;
@@ -83,40 +87,40 @@ public class player : MonoBehaviour
     }
     private void Jump(InputAction.CallbackContext obj) //jumping
     {
-        if(sticky == 0 && jumpCooldown <= 0f)
+        if (sticky == 0 && jumpCooldown <= 0f)
         {
-        jumpCooldown = 0.15f;
-        if (isgrounded() || coyote > 0f)
-        {
-            Jump();
-        }
-
-        if (walljumpingcounter > 0f)
-        {
-            iswalljumping = true;
-            rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
-            walljumpingcounter = 0f;
-            doublejump = 1;
-            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
-
-            if (transform.localScale.x != walljumpingdirection)
+            jumpCooldown = 0.15f;
+            if (isgrounded() || coyote > 0f)
             {
-                isfacingright = !isfacingright;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
+                Jump();
             }
-            Invoke(nameof(stopwalljumping), walljumpingduration);
-        }
-        else
-        {
-            if (doublejump > 0 && !isgrounded() && coyote <= 0f )
+
+            if (walljumpingcounter > 0f)
             {
-                rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
-                doublejump--;
-                SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
+                iswalljumping = true;
+                rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
+                walljumpingcounter = 0f;
+                doublejump = 1;
+                SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
+
+                if (transform.localScale.x != walljumpingdirection)
+                {
+                    isfacingright = !isfacingright;
+                    Vector3 localScale = transform.localScale;
+                    localScale.x *= -1f;
+                    transform.localScale = localScale;
+                }
+                Invoke(nameof(stopwalljumping), walljumpingduration);
             }
-        }
+            else
+            {
+                if (doublejump > 0 && !isgrounded() && coyote <= 0f)
+                {
+                    rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
+                    doublejump--;
+                    SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
+                }
+            }
         }
     }
 
@@ -133,14 +137,15 @@ public class player : MonoBehaviour
     {
         invincibility -= Time.deltaTime;
         jumpCooldown -= Time.deltaTime;
-        if(stamina > maxStamina)
+        if (stamina > maxStamina)
         {
-            if (stamina > maxStamina + 25) {
+            if (stamina > maxStamina + 25)
+            {
                 stamina = maxStamina + 25;
             }
-                
+
             stamina -= Time.deltaTime * 5;
-            if(stamina < maxStamina)
+            if (stamina < maxStamina)
             {
                 stamina = maxStamina;
             }
@@ -189,7 +194,21 @@ public class player : MonoBehaviour
             doublejump = 1;
         }
 
+        if (isgrounded() && Mathf.Abs(rb.linearVelocity.x) >= 2f && playingWalkSound == false)
+        {
+            StartCoroutine(playWalkingSound());
+        }
 
+    }
+
+
+
+    IEnumerator playWalkingSound()
+    {
+        playingWalkSound = true;
+        SoundManager.instance.PlaySoundFXClip(walkSound, transform, 1f);
+        yield return new WaitForSeconds(0.3f);
+        playingWalkSound = false;
     }
 
     private void FixedUpdate()
@@ -277,9 +296,9 @@ public class player : MonoBehaviour
 
     public void Jump()
     {
-            rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
-            doublejump = 1;
-            SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
+        rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
+        doublejump = 1;
+        SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
     }
 
 
@@ -340,14 +359,14 @@ public class player : MonoBehaviour
 
     public void Damaged()
     {
-        if(invincibility <= 0f)
+        if (invincibility <= 0f)
         {
-        life -= 1;
-        if(life == 0)
+            life -= 1;
+            if (life == 0)
             {
                 Restart();
             }
-        invincibility = 0.1f;
+            invincibility = 0.1f;
             rb.AddForce(Vector2.up * jumpingpower * 0.5f, ForceMode2D.Impulse);
         }
     }
