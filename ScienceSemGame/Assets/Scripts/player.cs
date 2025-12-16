@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using UnityEngine.UIElements;
 
 
 public class player : MonoBehaviour
@@ -46,6 +47,7 @@ public class player : MonoBehaviour
     [SerializeField] private AudioClip jumpHigh;
     [SerializeField] private AudioClip walkSound;
     [SerializeField] private AudioClip landSound;
+    [SerializeField] private AudioClip dashSound;
     [SerializeField] private TrailRenderer tr;
 
     private Boolean playingWalkSound = false;
@@ -318,6 +320,7 @@ public class player : MonoBehaviour
     //Dash stuff
     private IEnumerator Dash()
     {
+        SoundManager.instance.PlaySoundFXClip(dashSound, transform, 1f);
         stamina -= 10f;
         canDash = false;
         isdashing = true;
