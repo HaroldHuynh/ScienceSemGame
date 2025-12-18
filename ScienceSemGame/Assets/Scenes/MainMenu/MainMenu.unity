@@ -3023,7 +3023,7 @@ RectTransform:
   m_GameObject: {fileID: 489849637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1474930669}
@@ -4182,9 +4182,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTransition
       objectReference: {fileID: 0}
+    - target: {fileID: 6630073320654265226, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7895345550821902529, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8756017009446966311, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1474930669}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
 --- !u!1 &760980688
@@ -6960,7 +6971,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press <color=#feae34>"W"</color> to begin!
+  m_Text: Press <color=#feae34>"E"</color> to begin!
 --- !u!222 &1261728437
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8223,7 +8234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1474930666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8294,18 +8305,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474930665}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
   m_LocalScale: {x: 0.002, y: 0.002, z: 0.002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 489849638}
   - {fileID: 1261728435}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1994108444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -2.6, y: -14.4}
+  m_AnchoredPosition: {x: -0.06949425, y: -2.562852}
   m_SizeDelta: {x: 996, y: 560.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1484792170
@@ -10161,6 +10172,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cac5e23d092043d29589ec031aa26b4, type: 3}
+--- !u!4 &1994108444 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8756017009446966311, guid: e3e6cdb967c9545dca45785bc71b7414, type: 3}
+  m_PrefabInstance: {fileID: 738610870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2023259576
 GameObject:
   m_ObjectHideFlags: 0
@@ -10625,6 +10641,5 @@ SceneRoots:
   - {fileID: 1589631191}
   - {fileID: 1916349466}
   - {fileID: 409071926}
-  - {fileID: 1474930669}
   - {fileID: 738610870}
   - {fileID: 205850342}

@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 
 public class player : MonoBehaviour
 {
+    public Animator animator;
+
     private float speed = 2f;
     private float horizontal;
     private float jumpingpower = 21f;
@@ -66,6 +68,7 @@ public class player : MonoBehaviour
 
     private void OnEnable()
     {
+
         if (canDash == true && stamina >= 10f)
         {
             dash.action.performed += OnDash;
@@ -139,6 +142,8 @@ public class player : MonoBehaviour
 
     void Update()
     {
+        animator.SetFloat("speed", 0);
+
         invincibility -= Time.deltaTime;
         jumpCooldown -= Time.deltaTime;
         if (stamina > maxStamina)
@@ -161,9 +166,19 @@ public class player : MonoBehaviour
         {
             return;
         }
+
+
         horizontal = move.action.ReadValue<float>();
 
+        if (Math.Abs(horizontal) > 0f)
+        {
+            animator.SetFloat("speed", Mathf.Abs(rb.linearVelocity.x));
 
+            if (isgrounded() && playingWalkSound == false)
+            {
+                StartCoroutine(playWalkingSound());
+            }
+        }
 
         wallslide();
         walljump();
@@ -198,10 +213,11 @@ public class player : MonoBehaviour
             doublejump = 1;
         }
 
-        if (isgrounded() && Mathf.Abs(rb.linearVelocity.x) >= 2f && playingWalkSound == false)
-        {
-            StartCoroutine(playWalkingSound());
-        }
+        //if (isgrounded() && Mathf.Abs(rb.linearVelocity.x) >= 2f && playingWalkSound == false)
+        //{
+        //    
+        //    StartCoroutine(playWalkingSound());
+        //}
 
         if (!isgrounded() && prepareLanding != true)
         {
@@ -220,6 +236,7 @@ public class player : MonoBehaviour
 
     IEnumerator playWalkingSound()
     {
+
         playingWalkSound = true;
         SoundManager.instance.PlaySoundFXClip(walkSound, transform, 1f);
         yield return new WaitForSeconds(0.3f);
