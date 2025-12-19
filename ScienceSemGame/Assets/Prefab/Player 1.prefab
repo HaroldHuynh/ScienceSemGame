@@ -154,6 +154,30 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.colorGradient.m_ColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.8036041
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220682798047723218, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.7904769
+      objectReference: {fileID: 0}
     - target: {fileID: 2530560195352277351, guid: 9937cb5b28f7bdd43ac4ee814cfbf951, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.41
