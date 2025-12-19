@@ -246,7 +246,7 @@ public class player : MonoBehaviour
         if (prepareLanding == true && isgrounded())
         {
             prepareLanding = false;
-            SoundManager.instance.PlaySoundFXClip(landSound, transform, 1f);
+            SoundManager.instance.PlaySoundFXClip(landSound, transform, 0.4f);
         }
 
 
@@ -258,7 +258,7 @@ public class player : MonoBehaviour
     {
 
         playingWalkSound = true;
-        SoundManager.instance.PlaySoundFXClip(walkSound, transform, 1f);
+        SoundManager.instance.PlaySoundFXClip(walkSound, transform, 0.4f);
         yield return new WaitForSeconds(0.3f);
         playingWalkSound = false;
     }
