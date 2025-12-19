@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3813934239459036690}
   - component: {fileID: 8808041441641490174}
   - component: {fileID: 126930222938334861}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Jump Pad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounce: 20
+  bounceSound: {fileID: 8300000, guid: 9f7ab3b58d3634aa59ad4a2f2c969bbb, type: 3}
