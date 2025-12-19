@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 
 public class player : MonoBehaviour
 {
+    public Animator animator;
+
     private float speed = 2f;
     private float horizontal;
     private float jumpingpower = 21f;
@@ -66,6 +68,7 @@ public class player : MonoBehaviour
 
     private void OnEnable()
     {
+
         if (canDash == true && stamina >= 10f)
         {
             dash.action.performed += OnDash;
@@ -105,6 +108,7 @@ public class player : MonoBehaviour
                 rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
                 walljumpingcounter = 0f;
                 doublejump = 1;
+                animator.SetTrigger("jump");
                 SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
 
                 if (transform.localScale.x != walljumpingdirection)
@@ -120,6 +124,7 @@ public class player : MonoBehaviour
             {
                 if (doublejump > 0 && !isgrounded() && coyote <= 0f)
                 {
+                    animator.SetTrigger("jump");
                     rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
                     doublejump--;
                     SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
@@ -139,6 +144,9 @@ public class player : MonoBehaviour
 
     void Update()
     {
+        animator.SetFloat("speed", 0);
+        animator.SetBool("isGrounded", isgrounded());
+
         invincibility -= Time.deltaTime;
         jumpCooldown -= Time.deltaTime;
         if (stamina > maxStamina)
@@ -156,14 +164,23 @@ public class player : MonoBehaviour
         }
 
 
-
         if (isdashing == true)
         {
             return;
         }
+
+
         horizontal = move.action.ReadValue<float>();
 
+        if (Math.Abs(horizontal) > 0f)
+        {
+            animator.SetFloat("speed", Mathf.Abs(rb.linearVelocity.x));
 
+            if (isgrounded() && playingWalkSound == false)
+            {
+                StartCoroutine(playWalkingSound());
+            }
+        }
 
         wallslide();
         walljump();
@@ -198,10 +215,11 @@ public class player : MonoBehaviour
             doublejump = 1;
         }
 
-        if (isgrounded() && Mathf.Abs(rb.linearVelocity.x) >= 2f && playingWalkSound == false)
-        {
-            StartCoroutine(playWalkingSound());
-        }
+        //if (isgrounded() && Mathf.Abs(rb.linearVelocity.x) >= 2f && playingWalkSound == false)
+        //{
+        //    
+        //    StartCoroutine(playWalkingSound());
+        //}
 
         if (!isgrounded() && prepareLanding != true)
         {
@@ -220,6 +238,7 @@ public class player : MonoBehaviour
 
     IEnumerator playWalkingSound()
     {
+
         playingWalkSound = true;
         SoundManager.instance.PlaySoundFXClip(walkSound, transform, 1f);
         yield return new WaitForSeconds(0.3f);
@@ -267,6 +286,7 @@ public class player : MonoBehaviour
         if (iswalled() && !isgrounded() && horizontal != 0f)
         {
             iswallsliding = true;
+            animator.SetTrigger("wallslide");
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -wallslidingspeed, float.MaxValue));
         }
         else
@@ -282,6 +302,8 @@ public class player : MonoBehaviour
             iswalljumping = false;
             walljumpingdirection = transform.localScale.x;
             walljumpingcounter = walljumpingtime;
+
+            animator.SetTrigger("jump");
 
             CancelInvoke(nameof(stopwalljumping));
         }
@@ -311,6 +333,7 @@ public class player : MonoBehaviour
 
     public void Jump()
     {
+        animator.SetTrigger("jump");
         rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
         doublejump = 1;
         SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
@@ -326,7 +349,7 @@ public class player : MonoBehaviour
         isdashing = true;
         float previousverticalmove = rb.gravityScale;
         rb.gravityScale = 0f;
-        rb.linearVelocity = new Vector2(-transform.localScale.x * dashSpeed, 0f);
+        rb.linearVelocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
         tr.emitting = true;
         yield return new WaitForSeconds(dashduration);
         tr.emitting = false;
