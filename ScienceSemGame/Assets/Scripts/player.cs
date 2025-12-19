@@ -108,6 +108,7 @@ public class player : MonoBehaviour
                 rb.linearVelocity = new Vector2(walljumpingdirection * walljumpingpower.x, walljumpingpower.y);
                 walljumpingcounter = 0f;
                 doublejump = 1;
+                animator.SetTrigger("jump");
                 SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
 
                 if (transform.localScale.x != walljumpingdirection)
@@ -123,6 +124,7 @@ public class player : MonoBehaviour
             {
                 if (doublejump > 0 && !isgrounded() && coyote <= 0f)
                 {
+                    animator.SetTrigger("jump");
                     rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
                     doublejump--;
                     SoundManager.instance.PlaySoundFXClip(jumpHigh, transform, 1f);
@@ -143,6 +145,7 @@ public class player : MonoBehaviour
     void Update()
     {
         animator.SetFloat("speed", 0);
+        animator.SetBool("isGrounded", isgrounded());
 
         invincibility -= Time.deltaTime;
         jumpCooldown -= Time.deltaTime;
@@ -159,7 +162,6 @@ public class player : MonoBehaviour
                 stamina = maxStamina;
             }
         }
-
 
 
         if (isdashing == true)
@@ -284,6 +286,7 @@ public class player : MonoBehaviour
         if (iswalled() && !isgrounded() && horizontal != 0f)
         {
             iswallsliding = true;
+            animator.SetTrigger("wallslide");
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -wallslidingspeed, float.MaxValue));
         }
         else
@@ -299,6 +302,8 @@ public class player : MonoBehaviour
             iswalljumping = false;
             walljumpingdirection = transform.localScale.x;
             walljumpingcounter = walljumpingtime;
+
+            animator.SetTrigger("jump");
 
             CancelInvoke(nameof(stopwalljumping));
         }
@@ -328,6 +333,7 @@ public class player : MonoBehaviour
 
     public void Jump()
     {
+        animator.SetTrigger("jump");
         rb.AddForce(Vector2.up * jumpingpower, ForceMode2D.Impulse);
         doublejump = 1;
         SoundManager.instance.PlaySoundFXClip(jumpLow, transform, 1f);
@@ -343,7 +349,7 @@ public class player : MonoBehaviour
         isdashing = true;
         float previousverticalmove = rb.gravityScale;
         rb.gravityScale = 0f;
-        rb.linearVelocity = new Vector2(-transform.localScale.x * dashSpeed, 0f);
+        rb.linearVelocity = new Vector2(transform.localScale.x * dashSpeed, 0f);
         tr.emitting = true;
         yield return new WaitForSeconds(dashduration);
         tr.emitting = false;
