@@ -162,6 +162,23 @@ public class player : MonoBehaviour
                 stamina = maxStamina;
             }
         }
+        else
+        {
+            if (stamina < maxStamina)
+            {
+
+                if (stamina < maxStamina)
+                {
+                    stamina += Time.deltaTime * 2;
+                }
+
+
+                if (stamina > maxStamina)
+                {
+                    stamina = maxStamina;
+                }
+            }
+        }
 
 
         if (isdashing == true)
@@ -231,6 +248,7 @@ public class player : MonoBehaviour
             prepareLanding = false;
             SoundManager.instance.PlaySoundFXClip(landSound, transform, 1f);
         }
+
 
     }
 
